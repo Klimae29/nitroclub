@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "pages#home"
+  root to: "cars#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -8,4 +8,19 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+
+
+  # Routes pour les voitures
+  resources :cars, only: [:show, :index, :new, :create] do
+    resources :rentals, only: [:create]
+  end
+
+  resources :cars, only: [:edit, :update, :destroy]
+
+  # Routes pour les locs (index et show seront sur pages)
+  resources :rentals, only: [:index, :show, :update, :destroy]
+
+  # Voir les resas de users
+  get '/dashboard', to: 'pages#dashboard'
 end
