@@ -5,7 +5,6 @@ class CreateRentals < ActiveRecord::Migration[7.1]
       t.date :end_date
       t.string :status
       t.references :car, null: false, foreign_key: true
-      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
