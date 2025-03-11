@@ -10,3 +10,13 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+:root {
+  --primary-color: #6b52a3;
+  --secondary-color: #f8f8f8;
+  --text-color: #333;
+  --border-color: #eaeaea;
+  --button-bg: #6b52a3;
+  --button-text: white;
+  --border-radius: 8px;
+}
