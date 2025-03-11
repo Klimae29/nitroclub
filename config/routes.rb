@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  get 'rentals/index'
+  get 'rentals/show'
+  get 'rentals/create'
+  get 'rentals/update'
+  get 'rentals/destroy'
+  get 'cars/index'
+  get 'cars/show'
+  get 'cars/new'
+  get 'cars/create'
+  get 'cars/edit'
+  get 'cars/update'
+  get 'cars/destroy'
   root to: "cars#index"
   devise_for :users
 
@@ -10,8 +22,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
-
 
   # Routes pour les voitures
   resources :cars, only: [:show, :index, :new, :create] do
@@ -26,3 +36,4 @@ Rails.application.routes.draw do
   # Voir les resas de users
   get '/dashboard', to: 'pages#dashboard'
 end
+
