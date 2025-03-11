@@ -1,0 +1,72 @@
+.header {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  border-bottom: 2px solid var(--border-color);
+
+  &__container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Logo */
+  &__logo img {
+    height: 60px;
+  }
+
+  /* Barre de recherche */
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--secondary-color);
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+  }
+
+  &__search input {
+    border: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    outline: none;
+    background: transparent;
+    color: var(--text-color);
+  }
+
+  .search-btn {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  /* Actions à droite */
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .club-btn {
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .icon {
+    font-size: 18px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+}
