@@ -1,12 +1,72 @@
 <%= render "components/header" %>
 
-<h1>Cars#index</h1>
-<p>Find me in app/views/cars/index.html.erb</p>
-<p>Ce site va etre incroyable!!!! 🤩</p>
-<p>Ici on va trouver toutes les cards avec nos voitures de bon goût</p>
+<div class="search-bar">
+  <input type="text" placeholder="Où ? les + belles de ta région">
+  <input type="date" placeholder="Début du Rasso">
+  <input type="date" placeholder="Fin du Rasso">
+  <button class="search-btn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+</button>
+</div>
 
-<ul>
+<div class="categories-container">
+  <div class="category">
+    <%= image_tag "stance.png", alt: "Stance" %>
+    <p>Stance</p>
+  </div>
+  <div class="category">
+    <%= image_tag "muscle.png", alt: "Stance" %>
+    <p>Muscle</p>
+  </div>
+  <div class="category">
+    <%= image_tag "neon.png", alt: "Stance" %>
+    <p>Néon</p>
+  </div>
+  <div class="category">
+    <%= image_tag "sono.png", alt: "Stance" %>
+    <p>Sono</p>
+  </div>
+  <div class="category">
+    <%= image_tag "offroad.png", alt: "Stance" %>
+    <p>Offroad</p>
+  </div>
+  <div class="category">
+    <%= image_tag "mini.png", alt: "Stance" %>
+    <p>Mini</p>
+  </div>
+</div>
+
+<div class="cars-container">
   <% @cars.each do |car| %>
-    <li><%= car.name %></li>
+    <div class="car-card">
+      <div class="car-card__image-container">
+        <%= link_to car_path(car) do %>
+          <% if car.image.attached? %>
+            <%= image_tag car.image, class: "car-card__image", alt: car.name %>
+          <% else %>
+            <%= image_tag "https://res.cloudinary.com/demo/image/upload/v1621234567/placeholder-car.png",
+                    class: "car-card__image", alt: "Placeholder Car" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="car-card__details">
+        <div class="car-card__header">
+          <h3 class="car-card__name"><%= car.name %></h3>
+          <div class="car-card__rating">
+            <%= car.respond_to?(:rating) ? "#{car.rating} ★" : "4.5 ★" %>
+          </div>
+        </div>
+        <p class="car-card__location">Maubeuge, Nord</p>
+        <p class="car-card__price"><%= car.price %>€ / jour</p>
+      </div>
+    </div>
   <% end %>
-</ul>
+
+</div>
+<!-- Scroll Infini -->
+<div id="load-more" data-next="<%= cars_path(page: @cars.next_page) if @cars.next_page %>" style="display: none;"></div>
+</div>

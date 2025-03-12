@@ -1,11 +1,55 @@
 .header {
   width: 100%;
-  background-color: white;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 30px;
-  border-bottom: 2px solid var(--border-color);
+  padding: 20px 40px;
+  position: relative;
+  z-index: 10;
+  margin-top: 40px; /* Ajustement de l'espace au-dessus */
+  border-radius: 15px; /* Coins arrondis pour un effet moderne */
+  box-shadow: 0px 4px 20px rgba(107, 82, 163, 0.15);
+  overflow: hidden;
+
+  /* Bordures énergétiques */
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, transparent, #8c7ae6, #a29bfe, #8c7ae6, transparent);
+    box-shadow: 0px 0px 10px rgba(140, 122, 230, 0.7);
+    border-radius: 15px;
+    animation: energyFlow 3s infinite linear;
+  }
+
+  &::before {
+    top: 0;
+  }
+
+  &::after {
+    bottom: 0;
+    animation-delay: 1.5s; /* Décalage pour alterner l'effet */
+  }
+
+  /* Animation de l'énergie qui circule */
+  @keyframes energyFlow {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0.6;
+    }
+  }
 
   &__container {
     display: flex;
@@ -14,38 +58,22 @@
     justify-content: space-between;
   }
 
-  /* Logo */
-  &__logo img {
-    height: 60px;
+  /* Logo voiture à gauche */
+  &__logo-left img {
+    height: 120px; /* Augmentation de la taille */
+    max-height: 150px; /* Ajustement si besoin */
+    filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.2));
   }
 
-  /* Barre de recherche */
-  &__search {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--secondary-color);
-    padding: 8px 15px;
-    border-radius: var(--border-radius);
+  /* Image NitroClub centrée */
+  &__center img {
+    height: 70px;
+    filter: drop-shadow(0px 0px 8px rgba(140, 122, 230, 0.4));
+    transition: transform 0.3s ease-in-out;
   }
 
-  &__search input {
-    border: none;
-    padding: 8px 10px;
-    font-size: 14px;
-    outline: none;
-    background: transparent;
-    color: var(--text-color);
-  }
-
-  .search-btn {
-    background: var(--button-bg);
-    color: var(--button-text);
-    border: none;
-    padding: 8px 12px;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: 18px;
+  &__center img:hover {
+    transform: scale(1.1);
   }
 
   /* Actions à droite */
@@ -56,17 +84,50 @@
   }
 
   .club-btn {
-    background: black;
-    color: white;
-    padding: 10px 15px;
-    border-radius: var(--border-radius);
+    font-style: italic;
+    font-size: 14px;
+    color: black;
     text-decoration: none;
-    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+  }
+
+  .club-btn:hover {
+    color: #8c7ae6;
   }
 
   .icon {
     font-size: 18px;
     color: var(--text-color);
     cursor: pointer;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  .icon:hover {
+    transform: scale(1.1);
+    color: #8c7ae6;
+  }
+
+  /* Conteneur utilisateur + icônes */
+  .user-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(162, 155, 254, 0.15);
+    padding: 8px;
+    border-radius: 20px;
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  .user-container:hover {
+    background: rgba(140, 122, 230, 0.3);
+    box-shadow: 0px 0px 15px rgba(140, 122, 230, 0.5);
+  }
+
+  .notif-dot {
+    height: 8px;
+    width: 8px;
+    background-color: red;
+    border-radius: 50%;
+    position: relative;
   }
 }

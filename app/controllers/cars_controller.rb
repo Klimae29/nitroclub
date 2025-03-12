@@ -1,6 +1,11 @@
 class CarsController < ApplicationController
   def index
-    @cars = Car.all
+    @cars = Car.order(created_at: :desc).page(params[:page]).per(30)
+
+    respond_to do |format|
+    format.html
+    format.js
+    end
   end
 
   def show

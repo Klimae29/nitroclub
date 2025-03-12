@@ -1,24 +1,25 @@
 <div class="header">
   <div class="header__container">
 
-    <!-- Logo -->
-    <div class="header__logo">
-      <%= image_tag "logo.png", alt: "NitroClub Logo" %>
+    <!-- Logo voiture à gauche -->
+    <div class="header__logo-left">
+      <%= image_tag "logo.png", alt: "Car Logo" %>
     </div>
 
-    <!-- Barre de recherche -->
-    <div class="header__search">
-      <input type="text" placeholder="Où ? les + belles de ta région">
-      <input type="date" placeholder="Début du Rasso">
-      <input type="date" placeholder="Fin du Rasso">
-      <button class="search-btn">🔍</button>
+    <!-- Image NitroClub centrée -->
+    <div class="header__center">
+      <%= image_tag "nitroclub.png", alt: "NitroClub Logo" %>
     </div>
 
     <!-- Actions à droite -->
     <div class="header__actions">
-      <a href="#" class="club-btn">DEVENIR MEMBRE DU CLUB</a>
+      <a href="#" class="club-btn">DEVENEZ MEMBRE DU CLUB</a>
       <i class="fas fa-globe icon"></i>
-      <i class="fas fa-user icon"></i>
+      <div class="user-container">
+        <i class="fas fa-bars icon"></i>
+        <i class="fas fa-user icon"></i>
+        <span class="notif-dot"></span>
+      </div>
     </div>
 
   </div>
