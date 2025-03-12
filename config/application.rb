@@ -14,6 +14,8 @@ module Nitroclub
       generate.helper false
       generate.test_framework :test_unit, fixture: false
     end
+    config.active_storage.draw_routes = false
+    config.action_mailbox.draw_routes = false
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
