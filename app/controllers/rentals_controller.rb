@@ -2,55 +2,57 @@ class RentalsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_car, only: [:create]
 
-  def create
-    @car = Car.find(params[:car_id])
-    @rental = @car.rentals.build(rental_params)
-    @rental = Rental.new(rental_params)
-    @rental.car = @car
-    @rental.user = current_user  # L'utilisateur qui fait la réservation
+  def new
+    @rental = Rental.new
+  end
 
-    @rental.owner = @car.user   # Le propriétaire de la voiture
+  def show
+
+  end
+  def create
+    @rental = @car.rentals.build(rental_params)
+    @rental.user = current_user
+    @rental.owner = @car.user
 
     if @rental.save
       redirect_to dashboard_path, notice: 'Votre réservation a été effectuée.'
     else
-      render 'cars/show', alert: 'Impossible de créer la réservation.'
+      render 'cars/show', status: :unprocessable_entity
     end
   end
 
+  def update
+
+  end
+
+  def destroy
+
+  end
   def accept
     @rental = Rental.find(params[:id])
-    @rental.update(status: :accepted)
-    redirect_to dashboard_path, notice: 'La réservation a été acceptée.'
+    if @rental.owner == current_user && @rental.pending?
+      @rental.update(status: :accepted)
+      redirect_to dashboard_path, notice: 'La réservation a été acceptée.'
+    else
+      redirect_to dashboard_path, alert: 'Vous ne pouvez pas accepter cette réservation.'
+    end
   end
 
   def reject
     @rental = Rental.find(params[:id])
-    @rental.update(status: :rejected)
-    redirect_to dashboard_path, notice: 'La réservation a été rejetée.'
+    if @rental.owner == current_user && @rental.pending?
+      @rental.update(status: :rejected)
+      redirect_to dashboard_path, notice: 'La réservation a été rejetée.'
+    else
+      redirect_to dashboard_path, alert: 'Vous ne pouvez pas rejeter cette réservation.'
+    end
   end
 
-  def new
-    @car = Car.find(params[:car_id])
-    @rental = Rental.new
-  end
-
-
-
-
-  def show
-  end
-
-  def update
-  end
-
-  def destroy
-  end
-
- private
+  private
 
   def set_car
-    @car = Car.find(params[:car_id])
+    @car = Car.find_by(id: params[:car_id])
+    redirect_to root_path, alert: 'Voiture introuvable' unless @car
   end
 
   def rental_params

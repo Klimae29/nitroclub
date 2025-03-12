@@ -1,54 +1,48 @@
-require 'cloudinary'
 class CarsController < ApplicationController
+  before_action :set_car, only: [:show, :destroy]
+
+  # GET /cars
   def index
-    @cars = Car.order(created_at: :desc).page(params[:page]).per(30)
-    @cars_images = Cloudinary::Api.resources(type: :upload, prefix: "nitroclub/cars")["resources"]
-    respond_to do |format|
-    format.html
-    format.js
-    end
+    per_page = params[:per_page] || 30  # Valeur par défaut si non définie
+    @cars = Car.order(created_at: :desc).page(params[:page]).per(per_page)
   end
 
+  # GET /cars/:id
   def show
-    @car = Car.find_by(id: params[:id])
-
-    if @car.nil?
-    redirect_to cars_path, alert: "La voiture demandée n'existe pas."
-    end
+    redirect_to cars_path, alert: "La voiture demandée n'existe pas." if @car.nil?
   end
 
+  # GET /cars/new
   def new
     @car = Car.new
   end
 
+  # POST /cars
   def create
     @car = current_user.cars.new(car_params)
+
     if @car.save
-      redirect_to car_path(@car)
+      redirect_to car_path(@car), notice: "Voiture ajoutée avec succès."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit
-    # on ne le fait pas
-  end
-
-  def update
-    # on ne le fait pas
-  end
-
+  # DELETE /cars/:id
   def destroy
-    @car = Car.find_by(id: params[:id])
     if @car
       @car.destroy
-      redirect_to cars_path, notice: 'Voiture supprimée avec succès.'
+      redirect_to cars_path, notice: "Voiture supprimée avec succès."
     else
-      redirect_to cars_path, alert: 'Voiture introuvable.'
+      redirect_to cars_path, alert: "Voiture introuvable."
     end
   end
 
-private
+  private
+
+  def set_car
+    @car = Car.find_by(id: params[:id])
+  end
 
   def car_params
     params.require(:car).permit(:name, :style, :price, :year, :description, :image)

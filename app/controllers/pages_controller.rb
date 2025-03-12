@@ -6,9 +6,9 @@ class PagesController < ApplicationController
 
   def dashboard
     if current_user
-      @current_rental = current_user.rentals.where("start_date <= ? AND end_date >= ?", Date.today, Date.today).first
-      @past_rentals = current_user.rentals.where("end_date < ?", Date.today) || []  # Assurer que c'est un tableau vide si aucun résultat
-      @rentals_as_owner = current_user.rentals_as_owner || []  # Assurer que c'est un tableau vide si aucun résultat
+      @current_rentals = current_user.rentals.where("start_date <= ? AND end_date >= ?", Date.today, Date.today)
+      @past_rentals = current_user.rentals.where("end_date < ?", Date.today) || []
+      @rentals_as_owner = current_user.rentals_as_owner || []
     else
       flash[:alert] = "Vous devez être connecté pour voir votre dashboard."
       redirect_to root_path
@@ -16,22 +16,24 @@ class PagesController < ApplicationController
   end
 
   def accept_rental
-    @rental = Rental.find(params[:id])
-    if @rental.owner == current_user && @rental.pending?
-      @rental.update(status: :accepted)
-      redirect_to dashboard_path, notice: 'Réservation acceptée.'
-    else
-      redirect_to dashboard_path, alert: 'Vous ne pouvez pas accepter cette réservation.'
-    end
+    update_rental_status(:accepted, "Réservation acceptée.")
   end
 
   def reject_rental
-    @rental = Rental.find(params[:id])
+    update_rental_status(:rejected, "Réservation rejetée.")
+  end
+
+  private
+
+  def update_rental_status(new_status, message)
+    @rental = Rental.find_by(id: params[:id])
+    return redirect_to dashboard_path, alert: "Réservation introuvable." unless @rental
+
     if @rental.owner == current_user && @rental.pending?
-      @rental.update(status: :rejected)
-      redirect_to dashboard_path, notice: 'Réservation rejetée.'
+      @rental.update(status: new_status)
+      redirect_to dashboard_path, notice: message
     else
-      redirect_to dashboard_path, alert: 'Vous ne pouvez pas rejeter cette réservation.'
+      redirect_to dashboard_path, alert: "Vous ne pouvez pas modifier cette réservation."
     end
   end
 end
