@@ -2,14 +2,9 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <div class="car-image-container">
-        <% if @car.image.attached? %>
-          <%= image_tag @car.image, class: "car-image img-fluid", alt: @car.name %>
-        <% else %>
-          <%= image_tag "https://res.cloudinary.com/demo/image/upload/v1621234567/placeholder-car.png", class: "car-image img-fluid", alt: "Placeholder Car" %>
-        <% end %>
-      </div>
+    <div class="col-12 car-image-container">
+      <% image_url = params[:image] || (@car.public_id.present? ? asset_path("cards/#{@car.public_id}.jpg") : image_path("placeholder-car.png")) %>
+      <%= image_tag image_url, class: "car-image img-fluid", alt: @car.name %>
     </div>
   </div>
 
@@ -20,26 +15,23 @@
       <p class="car-year">Année : <%= @car.year %></p>
       <p class="car-price">Prix : <strong><%= @car.price %>€ / jour</strong></p>
       <p class="car-description"><%= @car.description %></p>
-      <p class="car-rating">Évaluation : <%= @car.respond_to?(:rating) ? "#{@car.rating} ★" : "4.5 ★" %></p>
-      <p class="car-card__location">Maubeuge, Nord</p>
+      <p class="car-location">📍 Maubeuge, Nord</p>
+      <p class="car-rating">⭐️⭐️⭐️⭐️⭐️</p>
     </div>
 
     <div class="col-md-4 rental-form">
       <h2>Réserver cette voiture</h2>
-      <%= form_with(model: [@car, Rental.new], url: car_rentals_path(@car), method: :post, local: true) do |f| %>
+      <%= form_with(model: [@car, Rental.new], method: :post, local: true) do |f| %>
         <div class="form-group">
           <label>Date de début :</label>
           <%= f.date_field :start_date, required: true, class: "form-control" %>
         </div>
-
         <div class="form-group">
           <label>Date de fin :</label>
           <%= f.date_field :end_date, required: true, class: "form-control" %>
         </div>
-
         <%= f.submit "Réserver", class: "btn btn-primary w-100 mt-3" %>
       <% end %>
-   
     </div>
   </div>
 </div>

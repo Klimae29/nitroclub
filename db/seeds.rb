@@ -30,7 +30,19 @@ cars = [
   { style: "offroad", name: "Jeep Wrangler", price: 110, year: 2021, description: "Wrangler tout-terrain avec pneus renforcés.", public_id: "16" },
   { style: "offroad", name: "Toyota Land Cruiser", price: 115, year: 2020, description: "Land Cruiser prêt pour l'aventure extrême.", public_id: "17" },
   { style: "mini", name: "Fiat 500", price: 70, year: 2023, description: "500, petite mais pleine de charme.", public_id: "18" },
-  { style: "mini", name: "Mini Cooper", price: 75, year: 2022, description: "Mini Cooper avec un design iconique.", public_id: "19" }
+  { style: "mini", name: "Mini Cooper", price: 75, year: 2022, description: "Mini Cooper avec un design iconique.", public_id: "19" },
+  { style: "stance", name: "Subaru BRZ", price: 95, year: 2021, description: "Une voiture élégante et parfaite pour le stance.", public_id: "20" },
+  { style: "stance", name: "Lexus IS300", price: 88, year: 2019, description: "Une Lexus au look agressif et abaissée.", public_id: "21" },
+  { style: "muscle", name: "Dodge Charger", price: 140, year: 2022, description: "Une berline musclée avec un moteur puissant.", public_id: "22" },
+  { style: "muscle", name: "Chevrolet Corvette C7", price: 150, year: 2020, description: "Une Corvette iconique avec un rugissement unique.", public_id: "23" },
+  { style: "neon", name: "Nissan Skyline R34 Neon", price: 110, year: 2018, description: "Skyline avec éclairage sous châssis et néons personnalisés.", public_id: "24" },
+  { style: "neon", name: "Hyundai Veloster Neon", price: 85, year: 2021, description: "Une compacte ultra-moderne avec néons LED.", public_id: "25" },
+  { style: "sono", name: "Renault Clio Sono", price: 90, year: 2017, description: "Une Clio avec un système audio de compétition.", public_id: "26" },
+  { style: "sono", name: "Audi A3 Sono", price: 120, year: 2019, description: "Audi premium avec caissons de basses optimisés.", public_id: "27" },
+  { style: "offroad", name: "Ford Bronco", price: 125, year: 2023, description: "Un tout-terrain robuste pour les aventuriers.", public_id: "28" },
+  { style: "offroad", name: "Mercedes G-Wagon", price: 180, year: 2022, description: "Un SUV de luxe, puissant et tout-terrain.", public_id: "29" },
+  { style: "mini", name: "Honda e", price: 75, year: 2021, description: "Une citadine électrique au look rétro-futuriste.", public_id: "30" },
+  { style: "mini", name: "Smart Fortwo", price: 60, year: 2023, description: "La voiture parfaite pour la ville, ultra-compacte.", public_id: "31" }
 ]
 
 cars.each do |car_data|

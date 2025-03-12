@@ -15,7 +15,7 @@ class RentalsController < ApplicationController
     @rental.owner = @car.user
 
     if @rental.save
-      redirect_to dashboard_path, notice: 'Votre réservation a été effectuée.'
+      redirect_to user_dashboard_path, notice: 'Votre réservation a été effectuée.'
     else
       render 'cars/show', status: :unprocessable_entity
     end

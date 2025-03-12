@@ -8,26 +8,32 @@
 
     <!-- Image NitroClub centrée -->
     <div class="header__center">
-        <%= link_to root_path do %>
-          <%= image_tag "nitroclub.png", alt: "NitroClub Logo" %>
-        <% end %>
+      <%= link_to root_path do %>
+        <%= image_tag "nitroclub.png", alt: "NitroClub Logo" %>
+      <% end %>
     </div>
 
     <!-- Actions à droite -->
     <div class="header__actions">
-      <a><%= link_to "DEVENEZ MEMBRE DU CLUB", new_user_registration_path %></a>
+      <span>DEVENEZ MEMBRE DU CLUB</span>
       <i class="fas fa-globe icon"></i>
+
+      <!-- Conteneur utilisateur et menu (aligné à droite) -->
       <div class="user-container">
-        
-        <%= link_to new_user_session_path, class: "nav-link" do %>
-          <i class="fas fa-user icon"> </i>
+        <% if user_signed_in? %>
+          <%= link_to user_dashboard_path do %>
+            <i class="fas fa-user icon"></i>
+          <% end %>
+
+          <%= link_to "#", class: "menu-toggle" do %>
+          <i class="fas fa-bars icon"></i>
+          <% end %>
+        <% else %>
+          <%= link_to new_user_session_path do %>
+          <i class="fas fa-user icon"></i>
+          <% end %>
         <% end %>
-            <%= link_to dashboard_path do %>
-              <i class="fas fa-bars icon"></i>
-            <% end %>
-        <span class="notif-dot"></span>
       </div>
     </div>
-
   </div>
 </div>

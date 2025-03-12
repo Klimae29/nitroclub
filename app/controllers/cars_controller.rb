@@ -3,7 +3,7 @@ class CarsController < ApplicationController
 
   # GET /cars
   def index
-    per_page = params[:per_page] || 30  # Valeur par défaut si non définie
+    per_page = params[:per_page] || 50
     @cars = Car.order(created_at: :desc).page(params[:page]).per(per_page)
   end
 

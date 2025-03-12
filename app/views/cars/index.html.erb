@@ -13,27 +13,27 @@
 </div>
 
 <div class="categories-container">
-  <div class="category">
+  <div class="category" data-category="stance">
     <%= image_tag "stance.png", alt: "Stance" %>
     <p>Stance</p>
   </div>
-  <div class="category">
+  <div class="category" data-category="muscle">
     <%= image_tag "muscle.png", alt: "Muscle" %>
     <p>Muscle</p>
   </div>
-  <div class="category">
+  <div class="category" data-category="neon">
     <%= image_tag "neon.png", alt: "Néon" %>
     <p>Néon</p>
   </div>
-  <div class="category">
+  <div class="category" data-category="sono">
     <%= image_tag "sono.png", alt: "Sono" %>
     <p>Sono</p>
   </div>
-  <div class="category">
+  <div class="category" data-category="offroad">
     <%= image_tag "offroad.png", alt: "Offroad" %>
     <p>Offroad</p>
   </div>
-  <div class="category">
+  <div class="category" data-category="mini">
     <%= image_tag "mini.png", alt: "Mini" %>
     <p>Mini</p>
   </div>
@@ -64,6 +64,8 @@
   <% end %>
 </div>
 
-<div class="pagination-container">
-  <%= paginate @cars %>
+<div id="load-more"
+     data-controller="infinite-scroll"
+     data-action="scroll@window->infinite-scroll#loadMore"
+     data-next-page="<%= cars_path(page: @cars.next_page) if @cars.next_page %>">
 </div>

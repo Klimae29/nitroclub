@@ -1,32 +1,22 @@
-import { Controller } from "stimulus";
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  connect() {
-    let observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        this.loadMore();
-      }
-    });
-
-    observer.observe(this.element);
-  }
-
   loadMore() {
-    let next_page = this.element.dataset.next;
+    let nextPage = this.element.dataset.nextPage;
 
-    if (next_page) {
-      fetch(next_page, { headers: { accept: "text/javascript" } })
+    if (!nextPage) return;
+
+    let bottomOfPage = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
+    if (bottomOfPage) {
+      fetch(nextPage, {
+        headers: { "X-Requested-With": "XMLHttpRequest" }
+      })
         .then(response => response.text())
         .then(html => {
-          document.querySelector(".cars-container").insertAdjacentHTML("beforeend", html);
-
-          let newLoadMore = document.querySelector("#load-more");
-          if (newLoadMore) {
-            this.element.dataset.next = newLoadMore.dataset.next;
-          } else {
-            this.element.remove(); // Supprime la div si plus de pages
-          }
-        });
+          let carsList = document.querySelector("#cars-list");
+          carsList.insertAdjacentHTML("beforeend", html);
+        })
+        .catch(error => console.error("Erreur de chargement :", error));
     }
   }
 }
