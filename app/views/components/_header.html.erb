@@ -8,7 +8,9 @@
 
     <!-- Image NitroClub centrée -->
     <div class="header__center">
-      <%= image_tag "nitroclub.png", alt: "NitroClub Logo" %>
+        <%= link_to root_path do %>
+          <%= image_tag "nitroclub.png", alt: "NitroClub Logo" %>
+        <% end %>
     </div>
 
     <!-- Actions à droite -->
@@ -16,7 +18,9 @@
       <a href="#" class="club-btn">DEVENEZ MEMBRE DU CLUB</a>
       <i class="fas fa-globe icon"></i>
       <div class="user-container">
-        <i class="fas fa-bars icon"></i>
+            <%= link_to dashboard_path do %>
+              <i class="fas fa-bars icon"></i>
+            <% end %>
         <i class="fas fa-user icon"></i>
         <span class="notif-dot"></span>
       </div>

@@ -1,0 +1,73 @@
+<%= render "components/header" %>
+
+<h1>Mon Garage</h1>
+
+<!-- Réservations en cours -->
+<% if @current_rental %>
+  <h2>Réservation en cours</h2>
+  <p><strong>Voiture :</strong> <%= @current_rental.car.name %></p>
+  <p><strong>Style :</strong> <%= @current_rental.car.style %></p>
+  <p><strong>Date de début :</strong> <%= @current_rental.start_date %></p>
+  <p><strong>Date de fin :</strong> <%= @current_rental.end_date %></p>
+  <p><strong>Statut :</strong> <%= @current_rental.status.capitalize %></p>
+<% else %>
+  <p>Aucune réservation en cours.</p>
+<% end %>
+
+<!-- Réservations passées -->
+<h2>Réservations passées</h2>
+<% if (@past_rentals || []).any? %>
+  <ul>
+    <% @past_rentals.each do |rental| %>
+      <li>
+        <strong>Voiture :</strong> <%= rental.car.name %> -
+        <strong>Style :</strong> <%= rental.car.style %> -
+        <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
+        <strong>Statut :</strong> <%= rental.status.capitalize %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucune réservation passée.</p>
+<% end %>
+
+<!-- Réservations en attente (propriétaire) -->
+<h2>Réservations en attente</h2>
+<% if (@rentals_as_owner || []).any? %>
+  <ul>
+    <% @rentals_as_owner.each do |rental| %>
+      <li>
+        <strong>Locataire :</strong> <%= rental.user.email %> -
+        <strong>Voiture :</strong> <%= rental.car.name %> -
+        <strong>Style :</strong> <%= rental.car.style %> -
+        <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
+        <strong>Statut :</strong> <%= rental.status.capitalize %>
+        <% if rental.pending? %>
+          <%= link_to 'Accepter', accept_rental_page_path(rental), method: :patch, class: 'btn btn-success' %>
+          <%= link_to 'Rejeter', reject_rental_page_path(rental), method: :patch, class: 'btn btn-danger' %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucune réservation en attente.</p>
+<% end %>
+
+<!-- Réservations acceptées (locataire) -->
+<h2>Mes réservations</h2>
+<% if (@rentals_as_tenant || []).any? %>
+  <ul>
+    <% @rentals_as_tenant.each do |rental| %>
+      <li>
+        <strong>Voiture :</strong> <%= rental.car.name %> -
+        <strong>Style :</strong> <%= rental.car.style %> -
+        <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
+        <strong>Statut :</strong> <%= rental.status.capitalize %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucune réservation effectuée.</p>
+<% end %>
+
+<%= link_to 'Retour à l\'accueil', root_path, class: 'btn btn-primary' %>
