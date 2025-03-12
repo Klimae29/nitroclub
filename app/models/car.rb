@@ -8,6 +8,4 @@ class Car < ApplicationRecord
   validates :year, presence: true
   validates :description, presence: true, length: { maximum: 255 }
   validates :public_id, presence: true, uniqueness: true
-
-  has_one_attached :photo
 end

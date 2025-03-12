@@ -1,5 +1,5 @@
-Car.destroy_all
 User.destroy_all
+Car.destroy_all
 
 users = [
   { email: "JeanPascallaruch@gmail.com", password: "123soleil" },
@@ -9,7 +9,7 @@ users = [
   { email: "JeanpierrePascallaruch@gmail.com", password: "123soleil" }
 ]
 
-created_users = users.map { |user| User.create!(user) }
+created_users = users.map { |user| User.find_or_create_by!(email: user[:email]) { |u| u.password = user[:password] } }
 
 cars = [
   { style: "stance", name: "Nissan 350Z", price: 90, year: 2018, description: "Voiture abaissée avec kit carrosserie et jantes larges.", public_id: "1" },
@@ -33,8 +33,21 @@ cars = [
   { style: "mini", name: "Mini Cooper", price: 75, year: 2022, description: "Mini Cooper avec un design iconique.", public_id: "19" }
 ]
 
-cars.each do |car|
-  Car.create!(car.merge(user: created_users.sample))
+cars.each do |car_data|
+  user = created_users.sample
+  new_car = Car.new(car_data.merge(user: user))
+
+  if new_car.valid?
+    new_car.save!
+  else
+    puts "⚠️ Erreur : Impossible d'ajouter la voiture #{car_data[:name]} → #{new_car.errors.full_messages.join(", ")}"
+  end
 end
 
-puts "#{User.count} users and #{Car.count} cars have successfully been uploaded."
+# Affichage du résultat final
+puts "✅ #{User.count} utilisateurs créés."
+puts "✅ #{Car.count} voitures créées."
+
+if Car.count < cars.size
+  puts "⚠️ Certaines voitures n'ont pas été enregistrées."
+end

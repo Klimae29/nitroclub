@@ -10,5 +10,5 @@ class User < ApplicationRecord
   has_many :rentals, dependent: :destroy
 
   # Locations dont l'utilisateur est le propriétaire de la voiture
-  has_many :rentals_as_owner, class_name: 'Rental', foreign_key: 'car_user_id', dependent: :destroy
+  has_many :rentals_as_owner, class_name: 'Rental', foreign_key: 'owner_id', dependent: :destroy
 end

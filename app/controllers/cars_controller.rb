@@ -10,7 +10,11 @@ class CarsController < ApplicationController
   end
 
   def show
-    @car = Car.find(params[:id])
+    @car = Car.find_by(id: params[:id])
+
+    if @car.nil?
+    redirect_to cars_path, alert: "La voiture demandée n'existe pas."
+    end
   end
 
   def new
@@ -35,8 +39,13 @@ class CarsController < ApplicationController
   end
 
   def destroy
-    @car = Car.find(params[:id])
-    @car.destroy
+    @car = Car.find_by(id: params[:id])
+    if @car
+      @car.destroy
+      redirect_to cars_path, notice: 'Voiture supprimée avec succès.'
+    else
+      redirect_to cars_path, alert: 'Voiture introuvable.'
+    end
   end
 
 private

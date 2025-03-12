@@ -1,7 +1,7 @@
 class Rental < ApplicationRecord
   belongs_to :car
   belongs_to :user  # locataire, l'utilisateur qui fait la réservation
-  belongs_to :owner, class_name: 'User', foreign_key: 'car_user_id'  # propriétaire, l'utilisateur qui possède la voiture
+  belongs_to :owner, class_name: 'User' # propriétaire, l'utilisateur qui possède la voiture
 
   enum status: { pending: 0, accepted: 1, rejected: 2 }  # Statut de la réservation (en attente, acceptée, rejetée)
 
