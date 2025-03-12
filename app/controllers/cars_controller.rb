@@ -1,7 +1,8 @@
+require 'cloudinary'
 class CarsController < ApplicationController
   def index
     @cars = Car.order(created_at: :desc).page(params[:page]).per(30)
-
+    @cars_images = Cloudinary::Api.resources(type: :upload, prefix: "nitroclub/cars")["resources"]
     respond_to do |format|
     format.html
     format.js

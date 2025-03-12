@@ -1,10 +1,13 @@
 class Car < ApplicationRecord
   belongs_to :user
-  has_many :rental, dependent: :destroy
+  has_many :rentals, dependent: :destroy
+
   validates :name, presence: true
-  validates :style, presence: true, inclusion: { in: ["stance", "muscle", "neon", "sono", "offroad", "mini"] }
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :year, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :style, presence: true, inclusion: { in: %w[stance muscle neon sono offroad mini] }
+  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :year, presence: true
   validates :description, presence: true, length: { maximum: 255 }
-  has_one_attached :image
+  validates :public_id, presence: true, uniqueness: true
+
+  has_one_attached :photo
 end

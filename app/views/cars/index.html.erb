@@ -1,15 +1,15 @@
 <%= render "components/header" %>
 
 <div class="search-bar">
-  <input type="text" placeholder="Où ? les + belles de ta région">
-  <input type="date" placeholder="Début du Rasso">
-  <input type="date" placeholder="Fin du Rasso">
+  <input type="text" placeholder="Où ? Les + belles de ta région">
+  <input type="date">
+  <input type="date">
   <button class="search-btn">
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle>
-    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-  </svg>
-</button>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </button>
 </div>
 
 <div class="categories-container">
@@ -18,23 +18,23 @@
     <p>Stance</p>
   </div>
   <div class="category">
-    <%= image_tag "muscle.png", alt: "Stance" %>
+    <%= image_tag "muscle.png", alt: "Muscle" %>
     <p>Muscle</p>
   </div>
   <div class="category">
-    <%= image_tag "neon.png", alt: "Stance" %>
+    <%= image_tag "neon.png", alt: "Néon" %>
     <p>Néon</p>
   </div>
   <div class="category">
-    <%= image_tag "sono.png", alt: "Stance" %>
+    <%= image_tag "sono.png", alt: "Sono" %>
     <p>Sono</p>
   </div>
   <div class="category">
-    <%= image_tag "offroad.png", alt: "Stance" %>
+    <%= image_tag "offroad.png", alt: "Offroad" %>
     <p>Offroad</p>
   </div>
   <div class="category">
-    <%= image_tag "mini.png", alt: "Stance" %>
+    <%= image_tag "mini.png", alt: "Mini" %>
     <p>Mini</p>
   </div>
 </div>
@@ -43,30 +43,27 @@
   <% @cars.each do |car| %>
     <div class="car-card">
       <div class="car-card__image-container">
-        <%= link_to car_path(car) do %>
-          <% if car.image.attached? %>
-            <%= image_tag car.image, class: "car-card__image", alt: car.name %>
+        <%= link_to car do %>
+          <% if car.public_id.present? %>
+            <%= image_tag "cards/#{car.public_id}.jpg", class: "car-card__image", alt: car.name %>
           <% else %>
-            <%= image_tag "https://res.cloudinary.com/demo/image/upload/v1621234567/placeholder-car.png",
-                    class: "car-card__image", alt: "Placeholder Car" %>
+            <p>Image non disponible</p>
           <% end %>
         <% end %>
       </div>
 
       <div class="car-card__details">
         <div class="car-card__header">
-          <h3 class="car-card__name"><%= car.name %></h3>
-          <div class="car-card__rating">
-            <%= car.respond_to?(:rating) ? "#{car.rating} ★" : "4.5 ★" %>
-          </div>
+          <h3><%= car.name %></h3>
+          <div class="car-card__rating">⭐️⭐️⭐️⭐️⭐️</div>
         </div>
         <p class="car-card__location">Maubeuge, Nord</p>
         <p class="car-card__price"><%= car.price %>€ / jour</p>
       </div>
     </div>
   <% end %>
-
 </div>
-<!-- Scroll Infini -->
-<div id="load-more" data-next="<%= cars_path(page: @cars.next_page) if @cars.next_page %>" style="display: none;"></div>
+
+<div class="pagination-container">
+  <%= paginate @cars %>
 </div>
