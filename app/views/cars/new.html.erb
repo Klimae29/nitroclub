@@ -1,2 +1,36 @@
-<h1>Cars#new</h1>
-<p>Find me in app/views/cars/new.html.erb</p>
+<%= render "components/header" %>
+
+<br>
+<br>
+
+<div class="container">
+<p style="color: #6b52a3;">Enregistre ta caisse de dingue</p>
+</div>
+
+
+
+<%= simple_form_for @car, html: { class: "p-4 bg-light rounded shadow" } do |f| %>
+  <div class="mb-3">
+    <%= f.input :name, label: "Nom de ta caisse", input_html: { class: "form-control" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.input :style, label: "Style", as: :select, collection: ["stance", "muscle", "neon", "sono", "offroad", "mini"], input_html: { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.input :price, label: "Prix/jour (€)", input_html: { class: "form-control", type: "number", step: "1", min: "0" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.input :year, as: :select, collection: (1970..Date.today.year).to_a.reverse, label: "Année", input_html: { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.input :description, label: "Description", as: :text, input_html: { class: "form-control", rows: 4 } %>
+  </div>
+  <div class="mb-3">
+    <%= f.input :image, as: :file, label: "Ajouter une image" %>
+  </div>
+  <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+<% end %>

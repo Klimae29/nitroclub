@@ -17,7 +17,12 @@ class CarsController < ApplicationController
   end
 
   def create
-    @car = Car.new(car_params)
+    @car = current_user.cars.new(car_params)
+    if @car.save
+      redirect_to car_path(@car)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -29,13 +34,13 @@ class CarsController < ApplicationController
   end
 
   def destroy
-    @car= Car.find(params[:id])
+    @car = Car.find(params[:id])
     @car.destroy
   end
 
 private
 
   def car_params
-    params.require(:car).permit(:name, :style, :price, :year, :description, :photo)
+    params.require(:car).permit(:name, :style, :price, :year, :description, :image)
   end
 end
