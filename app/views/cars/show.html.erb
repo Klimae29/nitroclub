@@ -1,5 +1,4 @@
 <%= render "components/header" %>
-<a href="<%= root_path %>" class="back-to-index">← Retour à l'accueil</a>
 
 <div class="container">
   <div class="row">
@@ -27,7 +26,7 @@
 
     <div class="col-md-4 rental-form">
       <h2>Réserver cette voiture</h2>
-      <%= form_with(model: [@car, Rental.new], url: rentals_path, method: :post, local: true) do |f| %>
+      <%= form_with(model: [@car, Rental.new], url: car_rentals_path(@car), method: :post, local: true) do |f| %>
         <div class="form-group">
           <label>Date de début :</label>
           <%= f.date_field :start_date, required: true, class: "form-control" %>
@@ -40,6 +39,7 @@
 
         <%= f.submit "Réserver", class: "btn btn-primary w-100 mt-3" %>
       <% end %>
+   
     </div>
   </div>
 </div>
