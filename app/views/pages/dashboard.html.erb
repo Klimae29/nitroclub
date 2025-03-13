@@ -3,16 +3,17 @@
 <h1>Mon Garage</h1>
 
 <!-- Réservations en cours -->
-<% if @current_rental %>
-  <h2>Réservation en cours</h2>
-  <p><strong>Voiture :</strong> <%= @current_rental.car.name %></p>
-  <p><strong>Style :</strong> <%= @current_rental.car.style %></p>
-  <p><strong>Date de début :</strong> <%= @current_rental.start_date %></p>
-  <p><strong>Date de fin :</strong> <%= @current_rental.end_date %></p>
-  <p><strong>Statut :</strong> <%= @current_rental.status.capitalize %></p>
-<% else %>
-  <p>Aucune réservation en cours.</p>
+<h2>Reservation en cours</h2>
+<% @current_rentals.each do |rental| %>
+  <p><strong>Voiture :</strong> <%= rental.car.name %></p>
+  <p><strong>Style :</strong> <%= rental.car.style %></p>
+  <p><strong>Date de début :</strong> <%= rental.start_date %></p>
+  <p><strong>Date de fin :</strong> <%= rental.end_date %></p>
+  <p><strong>Statut :</strong> <%= rental.status %></p>
 <% end %>
+  <% if @current_rentals.empty?%>
+    <p>Aucune réservation en cours.</p>
+  <% end %>
 
 <!-- Réservations passées -->
 <h2>Réservations passées</h2>

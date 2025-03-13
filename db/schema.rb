@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_12_182653) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_12_191403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_12_182653) do
     t.bigint "user_id", null: false
     t.bigint "owner_id", null: false
     t.index ["car_id"], name: "index_rentals_on_car_id"
+    t.index ["owner_id"], name: "index_rentals_on_owner_id"
     t.index ["user_id"], name: "index_rentals_on_user_id"
     t.check_constraint "end_date > start_date", name: "check_dates"
   end
@@ -58,5 +59,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_12_182653) do
   add_foreign_key "cars", "users"
   add_foreign_key "rentals", "cars"
   add_foreign_key "rentals", "users"
-  add_foreign_key "rentals", "users", column: "owner_id", on_delete: :cascade
+  add_foreign_key "rentals", "users", column: "owner_id"
 end
