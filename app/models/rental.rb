@@ -3,12 +3,12 @@ class Rental < ApplicationRecord
   belongs_to :car
   belongs_to :owner, class_name: 'User' # Propriétaire de la voiture
 
-  enum status: { pending: 0, accepted: 1, rejected: 2 }
+  enum status: { pending: 'pending', accepted: 'accepted', rejected: 'rejected' }
 
   validates :start_date, :end_date, presence: true
   validate :end_date_after_start_date
   validate :start_date_in_future, if: :pending?
-  validate :no_overlapping_rentals
+  #validate :no_overlapping_rentals
   validate :rental_period_limit
 
   scope :for_user, ->(user) { where(user: user) if user.present? }
@@ -29,13 +29,13 @@ class Rental < ApplicationRecord
   end
 
   def no_overlapping_rentals
-    overlapping_rentals = Rental.where(car: car)
-                                .where.not(id: id)
-                                .where("start_date < ? AND end_date > ?", end_date, start_date)
+    # overlapping_rentals = Rental.where(car: car)
+    #                             .where.not(id: id)
+    #                             .where("start_date < ? AND end_date > ?", end_date, start_date)
 
-    if overlapping_rentals.exists?
-      errors.add(:base, "Cette voiture est déjà réservée pour ces dates.")
-    end
+    # if overlapping_rentals.exists?
+    #   errors.add(:base, "Cette voiture est déjà réservée pour ces dates.")
+    # end
   end
 
   def rental_period_limit
