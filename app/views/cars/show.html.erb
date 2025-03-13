@@ -1,37 +1,42 @@
 <%= render "components/header" %>
 
-<div class="container">
+<div class="container mt-5">
   <div class="row">
-    <div class="col-12 car-image-container">
+    <!-- Car Image -->
+    <div class="col-md-7">
       <% image_url = params[:image] || (@car.public_id.present? ? asset_path("cards/#{@car.public_id}.jpg") : image_path("placeholder-car.png")) %>
       <%= image_tag image_url, class: "car-image img-fluid", alt: @car.name %>
     </div>
+
+    <!-- Rental Form (Aligned to Top) -->
+    <div class="col-md-4 ms-auto d-flex align-self-start">
+      <div class="rental-form p-3 border rounded-4 shadow-sm w-100">
+        <h2 class="h5 text-center">Réserver cette voiture</h2>
+        <%= form_with(model: [@car, Rental.new], method: :post, local: true) do |f| %>
+          <div class="form-group">
+            <label class="small">Date de début :</label>
+            <%= f.date_field :start_date, required: true, class: "form-control form-control-sm" %>
+          </div>
+          <div class="form-group">
+            <label class="small">Date de fin :</label>
+            <%= f.date_field :end_date, required: true, class: "form-control form-control-sm" %>
+          </div>
+          <%= f.submit "Réserver", class: "btn btn-primary btn-sm w-100 mt-2" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <div class="row mt-4">
-    <div class="col-md-8 car-details">
-      <h1><%= @car.name %></h1>
-      <p class="car-style">Type : <%= @car.style.capitalize %></p>
-      <p class="car-year">Année : <%= @car.year %></p>
-      <p class="car-price">Prix : <strong><%= @car.price %>€ / jour</strong></p>
-      <p class="car-description"><%= @car.description %></p>
-      <p class="car-location">📍 Maubeuge, Nord</p>
-      <p class="car-rating">⭐️⭐️⭐️⭐️⭐️</p>
-    </div>
-
-    <div class="col-md-4 rental-form">
-      <h2>Réserver cette voiture</h2>
-      <%= form_with(model: [@car, Rental.new], method: :post, local: true) do |f| %>
-        <div class="form-group">
-          <label>Date de début :</label>
-          <%= f.date_field :start_date, required: true, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <label>Date de fin :</label>
-          <%= f.date_field :end_date, required: true, class: "form-control" %>
-        </div>
-        <%= f.submit "Réserver", class: "btn btn-primary w-100 mt-3" %>
-      <% end %>
-    </div>
+  <!-- Car Details Below (Smaller & Left-Aligned) -->
+  <div class="col-md-4 car-details p-3 border rounded-4 shadow-sm ms-3 mb-5">
+    <h1 class="h5"><%= @car.name %></h1>
+    <p class="car-style small">Type : <%= @car.style.capitalize %></p>
+    <p class="car-year small">Année : <%= @car.year %></p>
+    <p class="car-price small">Prix : <strong><%= @car.price %>€ / jour</strong></p>
+    <p class="car-description small"><%= @car.description %></p>
+    <p class="car-location small">📍 Maubeuge, Nord</p>
+    <p class="car-rating small">⭐️⭐️⭐️⭐️⭐️</p>
   </div>
 </div>
+
+<div class="mb-5"></div>
