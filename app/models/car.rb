@@ -11,6 +11,10 @@ class Car < ApplicationRecord
 
   before_save :capitalize_name
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["style", "name", "price", "public_id", "description", "year", "created_at", "updated_at", "user_id"]
+  end
+
   private
 
   def capitalize_name

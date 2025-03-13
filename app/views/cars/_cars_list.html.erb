@@ -1,0 +1,22 @@
+<% cars.each do |car| %>
+  <div class="car-card">
+    <div class="car-card__image-container">
+      <%= link_to car do %>
+        <% if car.public_id.present? %>
+          <%= image_tag "cards/#{car.public_id}.jpg", class: "car-card__image", alt: car.name %>
+        <% else %>
+          <p>Image non disponible</p>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="car-card__details">
+      <div class="car-card__header">
+        <h3><%= car.name %></h3>
+        <div class="car-card__rating">⭐⭐⭐⭐⭐</div>
+      </div>
+      <p class="car-card__location">Maubeuge, Nord</p>
+      <p class="car-card__price"><%= car.price %>€ / jour</p>
+    </div>
+  </div>
+<% end %>
