@@ -73,5 +73,6 @@
 
 
 
+<%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: "Es-tu sûr de vouloir te déconnecter ?" } %>
 <%= link_to 'Créer mon bolide', new_car_path, class: 'btn btn-success' %>
 <%= link_to 'Retour à l\'accueil', root_path, class: 'btn btn-primary' %>
