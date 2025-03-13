@@ -13,6 +13,7 @@ class RentalsController < ApplicationController
     @rental = @car.rentals.build(rental_params)
     @rental.user = current_user
     @rental.owner = @car.user
+    @rental.status = 'pending'
 
     if @rental.save
       redirect_to user_dashboard_path, notice: 'Votre réservation a été effectuée.'
@@ -22,30 +23,21 @@ class RentalsController < ApplicationController
   end
 
   def update
-
   end
 
   def destroy
-
   end
+
   def accept
     @rental = Rental.find(params[:id])
-    if @rental.owner == current_user && @rental.pending?
-      @rental.update(status: :accepted)
-      redirect_to dashboard_path, notice: 'La réservation a été acceptée.'
-    else
-      redirect_to dashboard_path, alert: 'Vous ne pouvez pas accepter cette réservation.'
-    end
+    @rental.update(status: 'accepted')
+    redirect_to user_dashboard_path, notice: 'La réservation a été acceptée.'
   end
 
   def reject
     @rental = Rental.find(params[:id])
-    if @rental.owner == current_user && @rental.pending?
-      @rental.update(status: :rejected)
-      redirect_to dashboard_path, notice: 'La réservation a été rejetée.'
-    else
-      redirect_to dashboard_path, alert: 'Vous ne pouvez pas rejeter cette réservation.'
-    end
+    @rental.update(status: 'rejected')
+    redirect_to user_dashboard_path, notice: 'La réservation a été rejetée.'
   end
 
   private

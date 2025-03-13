@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
   def dashboard
     if current_user
-      @current_rentals = current_user.rentals.where("start_date <= ? AND end_date >= ?", Date.today, Date.today)
+      @current_rentals = current_user.rentals #.where("start_date <= ? AND end_date >= ?", Date.today, Date.today)
       @past_rentals = current_user.rentals.where("end_date < ?", Date.today) || []
       @rentals_as_owner = current_user.rentals_as_owner || []
     else
@@ -15,25 +15,25 @@ class PagesController < ApplicationController
     end
   end
 
-  def accept_rental
-    update_rental_status(:accepted, "Réservation acceptée.")
-  end
+#   def accept_rental
+#     update_rental_status(:accepted, "Réservation acceptée.")
+#   end
 
-  def reject_rental
-    update_rental_status(:rejected, "Réservation rejetée.")
-  end
+#   def reject_rental
+#     update_rental_status(:rejected, "Réservation rejetée.")
+#   end
 
-  private
+#   private
 
-  def update_rental_status(new_status, message)
-    @rental = Rental.find_by(id: params[:id])
-    return redirect_to dashboard_path, alert: "Réservation introuvable." unless @rental
+#   def update_rental_status(new_status, message)
+#     @rental = Rental.find_by(id: params[:id])
+#     return redirect_to dashboard_path, alert: "Réservation introuvable." unless @rental
 
-    if @rental.owner == current_user && @rental.pending?
-      @rental.update(status: new_status)
-      redirect_to dashboard_path, notice: message
-    else
-      redirect_to dashboard_path, alert: "Vous ne pouvez pas modifier cette réservation."
-    end
-  end
+#     if @rental.owner == current_user && @rental.pending?
+#       @rental.update(status: new_status)
+#       redirect_to dashboard_path, notice: message
+#     else
+#       redirect_to dashboard_path, alert: "Vous ne pouvez pas modifier cette réservation."
+#     end
+#   end
 end
