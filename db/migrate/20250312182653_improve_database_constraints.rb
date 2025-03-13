@@ -1,6 +1,6 @@
 class ImproveDatabaseConstraints < ActiveRecord::Migration[7.1]
   def change
-    change_column :rentals, :owner_id, :bigint, null: false
+    add_column :rentals, :owner_id, :bigint, null: false
     change_column_default :rentals, :status, "pending"
 
     execute "ALTER TABLE rentals ADD CONSTRAINT check_dates CHECK (end_date > start_date);"
