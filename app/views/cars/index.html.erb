@@ -12,56 +12,52 @@
   </button>
 </div>
 
-<div class="categories-container">
-  <div class="category" data-category="stance">
-    <%= image_tag "stance.png", alt: "Stance" %>
+  <div class="categories-container">
+  <div class="category">
+    <%= link_to cars_path(q: { style_eq: "stance" }), remote: true, class: "category-link" do %>
+      <%= image_tag "stance.png", alt: "Stance" %>
+    <% end %>
     <p>Stance</p>
   </div>
-  <div class="category" data-category="muscle">
-    <%= image_tag "muscle.png", alt: "Muscle" %>
+
+  <div class="category">
+    <%= link_to cars_path(q: { style_eq: "muscle" }), remote: true, class: "category-link" do %>
+      <%= image_tag "muscle.png", alt: "Muscle" %>
+    <% end %>
     <p>Muscle</p>
   </div>
-  <div class="category" data-category="neon">
-    <%= image_tag "neon.png", alt: "Néon" %>
+
+  <div class="category">
+    <%= link_to cars_path(q: { style_eq: "neon" }), remote: true, class: "category-link" do %>
+      <%= image_tag "neon.png", alt: "Néon" %>
+    <% end %>
     <p>Néon</p>
   </div>
-  <div class="category" data-category="sono">
-    <%= image_tag "sono.png", alt: "Sono" %>
+
+  <div class="category">
+    <%= link_to cars_path(q: { style_eq: "sono" }), remote: true, class: "category-link" do %>
+      <%= image_tag "sono.png", alt: "Sono" %>
+    <% end %>
     <p>Sono</p>
   </div>
-  <div class="category" data-category="offroad">
-    <%= image_tag "offroad.png", alt: "Offroad" %>
+
+  <div class="category">
+    <%= link_to cars_path(q: { style_eq: "offroad" }), remote: true, class: "category-link" do %>
+      <%= image_tag "offroad.png", alt: "Offroad" %>
+    <% end %>
     <p>Offroad</p>
   </div>
-  <div class="category" data-category="mini">
-    <%= image_tag "mini.png", alt: "Mini" %>
+
+  <div class="category">
+    <%= link_to cars_path(q: { style_eq: "mini" }), remote: true, class: "category-link" do %>
+      <%= image_tag "mini.png", alt: "Mini" %>
+    <% end %>
     <p>Mini</p>
   </div>
 </div>
 
 <div class="cars-container">
-  <% @cars.each do |car| %>
-    <div class="car-card">
-      <div class="car-card__image-container">
-        <%= link_to car do %>
-          <% if car.public_id.present? %>
-            <%= image_tag "cards/#{car.public_id}.jpg", class: "car-card__image", alt: car.name %>
-          <% else %>
-            <p>Image non disponible</p>
-          <% end %>
-        <% end %>
-      </div>
-
-      <div class="car-card__details">
-        <div class="car-card__header">
-          <h3><%= car.name %></h3>
-          <div class="car-card__rating"></div><%= car.user.email %>
-        </div>
-        <p class="car-card__location">Maubeuge, Nord</p>
-        <p class="car-card__price"><%= car.price %>€ / jour</p>
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: "cars/cars_list", locals: { cars: @cars } %>
 </div>
 
 <div id="load-more"

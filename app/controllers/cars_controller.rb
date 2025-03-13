@@ -4,13 +4,17 @@ class CarsController < ApplicationController
   # GET /cars
   def index
     per_page = params[:per_page] || 50
-    @cars = Car.order(created_at: :desc).page(params[:page]).per(per_page)
+    @q = Car.ransack(params[:q]) # Ransack pour filtrer
+    style_filter = params.dig(:q, :style_eq)&.downcase # Convertir en minuscule
+
+    style_filter = params.dig(:q, :style_eq)&.downcase
+    @cars = @q.result
+              .where("LOWER(style) = LOWER(?)", style_filter)
+              .order(created_at: :desc)
+              .page(params[:page])
+              .per(per_page)
   end
 
-  # GET /cars/:id
-  def show
-    redirect_to cars_path, alert: "La voiture demandée n'existe pas." if @car.nil?
-  end
 
   # GET /cars/new
   def new

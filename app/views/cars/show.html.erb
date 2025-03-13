@@ -2,7 +2,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-12 car-image-container">
+    <div class="col-12 ">
       <% image_url = params[:image] || (@car.public_id.present? ? asset_path("cards/#{@car.public_id}.jpg") : image_path("placeholder-car.png")) %>
       <%= image_tag image_url, class: "car-image img-fluid", alt: @car.name %>
     </div>
