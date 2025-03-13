@@ -1,6 +1,7 @@
 class Car < ApplicationRecord
   belongs_to :user
   has_many :rentals, dependent: :destroy
+  has_one_attached :image
 
   validates :name, presence: true
   validates :style, presence: true, inclusion: { in: %w[stance muscle neon sono offroad mini] }
@@ -10,6 +11,10 @@ class Car < ApplicationRecord
   validates :public_id, presence: true, uniqueness: true
 
   before_save :capitalize_name
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["style", "name", "price", "public_id", "description", "year", "created_at", "updated_at", "user_id"]
+  end
 
   private
 

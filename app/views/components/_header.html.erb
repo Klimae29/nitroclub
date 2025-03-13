@@ -18,19 +18,17 @@
       <span>DEVENEZ MEMBRE DU CLUB</span>
       <i class="fas fa-globe icon"></i>
 
-      <!-- Conteneur utilisateur et menu (aligné à droite) -->
+      <!-- Conteneur utilisateur -->
       <div class="user-container">
         <% if user_signed_in? %>
+          <!-- Icône du bonhomme qui mène au Dashboard -->
           <%= link_to user_dashboard_path do %>
             <i class="fas fa-user icon"></i>
           <% end %>
-
-          <%= link_to "#", class: "menu-toggle" do %>
-          <i class="fas fa-bars icon"></i>
-          <% end %>
         <% else %>
+          <!-- Icône du bonhomme qui mène à la Connexion -->
           <%= link_to new_user_session_path do %>
-          <i class="fas fa-user icon"></i>
+            <i class="fas fa-user icon"></i>
           <% end %>
         <% end %>
       </div>
