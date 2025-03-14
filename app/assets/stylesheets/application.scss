@@ -10,9 +10,9 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+@import "pages/dashboard";
+@import "pages/show";
 
-// Import car show
-@import "pages/car_show";
 
 :root {
   --primary-color: #6b52a3;

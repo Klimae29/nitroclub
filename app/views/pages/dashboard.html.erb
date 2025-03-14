@@ -1,70 +1,81 @@
 <%= render "components/header" %>
 
-<h1>Mon Garage</h1>
+<div class="dashboard-container">
+  <h1>Mon Garage</h1>
 
-<!-- Réservations en cours (locataire) -->
-<h2>Vos réservations</h2>
-<% if (@current_rentals || []).any? %>
-  <ul>
-    <% @current_rentals.each do |rental| %>
-      <li>
-        <strong>Locataire :</strong> <%= rental.user.email %> -
-        <strong>Protriétaire :</strong> <%= rental.owner.email %>
-        <strong>Voiture :</strong> <%= rental.car.name %> -
-        <strong>Style :</strong> <%= rental.car.style %> -
-        <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
-        <strong>Statut :</strong> <%= rental.status %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Aucune réservation en attente.</p>
-<% end %>
-
-
-<!-- Réservations en attente (propriétaire) -->
-<h2>Réservations en attente</h2>
-<% if (@rentals_as_owner || []).any? %>
-  <ul>
-    <% @rentals_as_owner.each do |rental| %>
-      <li>
-        <strong>Locataire :</strong> <%= rental.user.email %> -
-        <strong>Protriétaire :</strong> <%= rental.owner.email %>
-        <strong>Voiture :</strong> <%= rental.car.name %> -
-        <strong>Style :</strong> <%= rental.car.style %> -
-        <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
-        <strong>Statut :</strong> <%= rental.status %>
-        <% if rental.status == 'pending' %>
-          <%= button_to 'Accepter', accept_rental_path(rental), method: :patch, class: 'btn btn-success' %>
-          <%= button_to 'Rejeter', reject_rental_path(rental), method: :patch, class: 'btn btn-danger' %>
+  <!-- Réservations en cours (locataire) -->
+  <h2>Vos réservations</h2>
+  <div class="reservation-section">
+    <% if (@current_rentals || []).any? %>
+      <ul>
+        <% @current_rentals.each do |rental| %>
+          <li>
+            <strong>Locataire :</strong> <%= rental.user.email %> -
+            <strong>Propriétaire :</strong> <%= rental.owner.email %> -
+            <strong>Voiture :</strong> <%= rental.car.name %> -
+            <strong>Style :</strong> <%= rental.car.style %> -
+            <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
+            <strong>Statut :</strong> <span class="status-pending"><%= rental.status %></span>
+          </li>
         <% end %>
-      </li>
+      </ul>
+    <% else %>
+      <p>Aucune réservation en attente.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>Aucune réservation en attente.</p>
-<% end %>
+  </div>
 
-<!-- Réservations acceptées (locataire) -->
-<h2>Mes réservations</h2>
-<% if (@rentals_as_tenant || []).any? %>
-  <ul>
-    <% @rentals_as_tenant.each do |rental| %>
-      <li>
-        <strong>Voiture :</strong> <%= rental.car.name %> -
-        <strong>Style :</strong> <%= rental.car.style %> -
-        <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
-        <strong>Statut :</strong> <%= rental.status %>
-      </li>
+  <!-- Réservations en attente (propriétaire) -->
+  <h2>Réservations en attente</h2>
+  <div class="reservation-section">
+    <% if (@rentals_as_owner || []).any? %>
+      <ul>
+        <% @rentals_as_owner.each do |rental| %>
+          <li>
+            <strong>Locataire :</strong> <%= rental.user.email %> -
+            <strong>Propriétaire :</strong> <%= rental.owner.email %> -
+            <strong>Voiture :</strong> <%= rental.car.name %> -
+            <strong>Style :</strong> <%= rental.car.style %> -
+            <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
+            <strong>Statut :</strong> <span class="status-pending"><%= rental.status %></span>
+            <% if rental.status == 'pending' %>
+              <div class="buttons-container">
+                <%= button_to 'Accepter', accept_rental_path(rental), method: :patch, class: 'custom-btn success' %>
+                <%= button_to 'Rejeter', reject_rental_path(rental), method: :patch, class: 'custom-btn danger' %>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>Aucune réservation en attente.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>Aucune réservation effectuée.</p>
-<% end %>
+  </div>
+
+  <!-- Réservations acceptées (locataire) -->
+  <h2>Mes réservations</h2>
+  <div class="reservation-section">
+    <% if (@rentals_as_tenant || []).any? %>
+      <ul>
+        <% @rentals_as_tenant.each do |rental| %>
+          <li>
+            <strong>Voiture :</strong> <%= rental.car.name %> -
+            <strong>Style :</strong> <%= rental.car.style %> -
+            <strong>Date :</strong> <%= rental.start_date %> à <%= rental.end_date %> -
+            <strong>Statut :</strong> <span class="status-pending"><%= rental.status %></span>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>Aucune réservation effectuée.</p>
+    <% end %>
+  </div>
 
 
+  <!-- Liens d'actions -->
+  <div class="buttons-container">
+    <%= link_to 'Créer mon bolide', new_car_path, class: 'custom-btn success' %>
+    <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: "delete" }, class: "custom-btn danger" %>
+    <%= link_to 'Retour à l\'accueil', root_path, class: 'custom-btn primary' %>
+  </div>
+</div>
 
-<%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: "Es-tu sûr de vouloir te déconnecter ?" } %>
-<%= link_to 'Créer mon bolide', new_car_path, class: 'btn btn-success' %>
-<%= link_to "Log out", destroy_user_session_path, data: { turbo_method: "delete" }, class: "dropdown-item" %>
-<%= link_to 'Retour à l\'accueil', root_path, class: 'btn btn-primary' %>

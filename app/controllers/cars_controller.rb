@@ -4,12 +4,29 @@ class CarsController < ApplicationController
   # GET /cars
   def index
     per_page = params[:per_page] || 50
-    @cars = Car.order(created_at: :desc).page(params[:page]).per(per_page)
-  end
+    @q = Car.ransack(params[:q])
 
-  # GET /cars/:id
-  def show
-    redirect_to cars_path, alert: "La voiture demandée n'existe pas." if @car.nil?
+    if params[:q].present? && params[:q][:style_eq].present?
+      style_filter = params[:q][:style_eq].downcase
+      if style_filter == "all"
+        @cars = Car.order(created_at: :desc).page(params[:page]).per(per_page)
+      else
+        @cars = @q.result
+                  .where("LOWER(style) = ?", style_filter)
+                  .order(created_at: :desc)
+                  .page(params[:page])
+                  .per(per_page)
+      end
+    else
+      @cars = Car.order(created_at: :desc).page(params[:page]).per(per_page)
+    end
+
+    @cars ||= Kaminari.paginate_array([]) # ✅ Correction pour éviter le nil
+
+    respond_to do |format|
+      format.html
+      format.js { render partial: "cars/list", locals: { cars: @cars } }
+    end
   end
 
   # GET /cars/new

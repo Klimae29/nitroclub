@@ -1,0 +1,126 @@
+// 🌟 Conteneur principal
+.page-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  margin: 60px auto;
+  gap: 40px;
+  padding: 0 40px;
+}
+
+// 📸 Image bien cadrée (Sans Hover)
+.car-image-container {
+  width: 100%;
+  max-width: 100%;
+  height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  background: white;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.car-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: none;
+}
+
+// 🚗 Détails & Réservation avec hover plus doux
+.details-reservation-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 50px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+// 🏎️ Détails du véhicule avec un hover fluide
+.car-details {
+  background: #fff;
+  border-radius: 15px;
+  padding: 35px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.car-details:hover {
+  background: linear-gradient(135deg, rgba(107, 82, 163, 0.1), rgba(140, 90, 228, 0.1)); /* Effet violet doux */
+  box-shadow: 0px 10px 25px rgba(107, 82, 163, 0.3);
+}
+
+.car-details h1 {
+  font-size: 30px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.car-details p {
+  color: #333;
+}
+
+// 📌 Réservation avec un hover plus subtil
+.reservation-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.reservation-container:hover {
+  background: linear-gradient(135deg, rgba(107, 82, 163, 0.1), rgba(140, 90, 228, 0.1)); /* Violet très léger */
+  box-shadow: 0px 10px 25px rgba(107, 82, 163, 0.3);
+}
+
+.reservation-container h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+// 📆 Champs du formulaire
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  transition: border 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #6b52a3;
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(107, 82, 163, 0.3);
+}
+
+// 🎨 Bouton Réserver avec hover fluide
+.btn-primary {
+  background: linear-gradient(135deg, #6b52a3, #8c5ae4);
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  font-size: 20px;
+}
+
+.btn-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 5px 15px rgba(140, 122, 230, 0.4);
+}

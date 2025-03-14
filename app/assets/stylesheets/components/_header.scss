@@ -7,12 +7,11 @@
   padding: 20px 40px;
   position: relative;
   z-index: 10;
-  margin-top: 40px; /* Ajustement de l'espace au-dessus */
-  border-radius: 15px; /* Coins arrondis pour un effet moderne */
+  margin-top: 40px;
+  border-radius: 15px;
   box-shadow: 0px 4px 20px rgba(107, 82, 163, 0.15);
   overflow: hidden;
 
-  /* Bordures énergétiques */
   &::before,
   &::after {
     content: "";
@@ -32,10 +31,9 @@
 
   &::after {
     bottom: 0;
-    animation-delay: 1.5s; /* Décalage pour alterner l'effet */
+    animation-delay: 1.5s;
   }
 
-  /* Animation de l'énergie qui circule */
   @keyframes energyFlow {
     0% {
       transform: translateX(-100%);
@@ -58,17 +56,15 @@
     justify-content: space-between;
   }
 
-  /* Logo voiture à gauche */
   &__logo-left img {
-    height: 120px; /* Augmentation de la taille */
-    max-height: 150px; /* Ajustement si besoin */
+    height: 120px;
+    max-height: 150px;
     filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.2));
   }
 
-  /* Image NitroClub centrée */
   &__center img {
-    height: 120px; /* Augmenter la taille */
-    max-height: 150px; /* Ajustement si besoin */
+    height: 120px;
+    max-height: 150px;
     filter: drop-shadow(3px 3px 15px rgba(140, 122, 230, 0.8));
     transition: transform 0.3s ease-in-out;
   }
@@ -77,11 +73,44 @@
     transform: scale(1.2);
   }
 
-  /* Actions à droite */
   &__actions {
     display: flex;
     align-items: center;
     gap: 15px;
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    transition: color 0.3s ease-in-out;
+
+    // Effet hover global
+    &:hover {
+      color: #8c7ae6; // Change la couleur du texte
+
+      .fas.fa-globe {
+        color: #8c7ae6;
+      }
+
+      .user-container {
+        background: rgba(140, 122, 230, 0.3);
+        box-shadow: 0px 0px 15px rgba(140, 122, 230, 0.5);
+      }
+
+      // Effet sur la boule
+      .notif-dot {
+        background-color: #8c7ae6;
+        box-shadow: 0px 0px 8px rgba(140, 122, 230, 0.8);
+      }
+    }
+  }
+
+  .user-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(162, 155, 254, 0.15);
+    padding: 8px;
+    border-radius: 20px;
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 
   .club-btn {
@@ -108,27 +137,13 @@
     color: #8c7ae6;
   }
 
-  /* Conteneur utilisateur + icônes */
-  .user-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(162, 155, 254, 0.15);
-    padding: 8px;
-    border-radius: 20px;
-    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  }
-
-  .user-container:hover {
-    background: rgba(140, 122, 230, 0.3);
-    box-shadow: 0px 0px 15px rgba(140, 122, 230, 0.5);
-  }
-
+  // Style de la boule de notification
   .notif-dot {
     height: 8px;
     width: 8px;
     background-color: red;
     border-radius: 50%;
     position: relative;
+    transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
 }
