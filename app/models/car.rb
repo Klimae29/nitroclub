@@ -2,6 +2,13 @@ class Car < ApplicationRecord
   belongs_to :user
   has_many :rentals, dependent: :destroy
   has_one_attached :image
+  include PgSearch::Model
+
+  pg_search_scope :search_by_name,
+    against: :name,
+    using: {
+      tsearch: { prefix: true }
+    }
 
   validates :name, presence: true
   validates :style, presence: true, inclusion: { in: %w[stance muscle neon sono offroad mini] }
