@@ -4,4 +4,4 @@ import CategoriesController from "./categories_controller";
 
 const application = Application.start();
 eagerLoadControllersFrom("controllers", application);
-application.register("categories", CategoriesController);
+//application.register("categories", CategoriesController);
