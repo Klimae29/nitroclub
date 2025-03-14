@@ -1,15 +1,15 @@
+<div class="index_page">
 <%= render "components/header" %>
 
-<div class="search-bar">
-  <input type="text" placeholder="Recherchez une voiture de rêve ou un style tuning">
-  <button class="search-btn">
+<div class="search-bar" data-controller="search">
+  <input type="text" id="search-input" data-search-target="input" placeholder="Recherchez une voiture de rêve">
+  <button class="search-btn" data-action="click->search#submitSearch">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
     </svg>
   </button>
 </div>
-
 
   <div class="categories-container">
   <div class="category">
@@ -63,4 +63,5 @@
      data-controller="infinite-scroll"
      data-action="scroll@window->infinite-scroll#loadMore"
      data-next-page="<%= cars_path(page: @cars.next_page) if @cars.next_page %>">
+</div>
 </div>

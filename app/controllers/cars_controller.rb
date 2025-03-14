@@ -5,6 +5,7 @@ class CarsController < ApplicationController
   def index
     per_page = params[:per_page] || 50
     @q = Car.ransack(params[:q])
+    @cars = @q.result.order(created_at: :desc).page(params[:page]).per(per_page)
 
     if params[:q].present? && params[:q][:style_eq].present?
       style_filter = params[:q][:style_eq].downcase
@@ -19,6 +20,11 @@ class CarsController < ApplicationController
       end
     else
       @cars = Car.order(created_at: :desc).page(params[:page]).per(per_page)
+    end
+    # filtrage par nom
+    if params[:query].present?
+      search_term = "%#{params[:query].downcase}%"
+      @cars = @cars.where("LOWER(name) LIKE ?", search_term)
     end
 
     @cars ||= Kaminari.paginate_array([]) # ✅ Correction pour éviter le nil
