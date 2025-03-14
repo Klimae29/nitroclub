@@ -1,7 +1,18 @@
+# Suppression des anciennes données
 User.destroy_all
 Car.destroy_all
 Rental.destroy_all
 
+# Définition des localisations possibles
+localisations = [
+  "Paris, France", "Lyon, France", "Marseille, France", "Bordeaux, France",
+  "Lille, France", "Toulouse, France", "Nantes, France", "Nice, France",
+  "Strasbourg, France", "Montpellier, France", "Rennes, France", "Grenoble, France",
+  "Maubeuge, Nord", "Roubaix, France", "Amiens, France", "Nancy, France",
+  "Dunkerque, France", "Perpignan, France", "Metz, France"
+]
+
+# Création des utilisateurs
 users = [
   { email: "JeanPascallaruch@gmail.com", password: "123soleil" },
   { email: "JeanPascalinelaruch@gmail.com", password: "123soleil" },
@@ -22,31 +33,16 @@ users = [
   { email: "JeanmiPuffe@gmail.com", password: "123soleil" },
   { email: "Gpaslaref@gmail.com", password: "123soleil" },
   { email: "JeanPierrePuff@gmail.com", password: "123soleil" },
-  { email: "Jeandunord@gmail.com", password: "123soleil" },
-  { email: "Fredlaruch@gmail.com", password: "123soleil" },
-  { email: "Freddunord@gmail.com", password: "123soleil" },
-  { email: "Freddebethune@gmail.com", password: "123soleil" },
-  { email: "LeparkingaFred@gmail.com", password: "123soleil" },
-  { email: "LeparkinaJeff@gmail.com", password: "123soleil" },
-  { email: "LeParkingalamarine@gmail.com", password: "123soleil" },
-  { email: "Leparkingaolivier@gmail.com", password: "123soleil" },
-  { email: "Yesdu59@gmail.com", password: "123soleil" },
-  { email: "Yesdu21f@gmail.com", password: "123soleil" },
-  { email: "DjMedhi@gmail.com", password: "123soleil" },
-  { email: "MarinedeBelgique@gmail.com", password: "123soleil" },
-  { email: "Vivelabelgiquelibre@gmail.com", password: "123soleil" },
-  { email: "Olivierlasonodu59@gmail.com", password: "123soleil" },
-  { email: "Olivier59debethune@gmail.com", password: "123soleil" },
-  { email: "OliverDiscodu56@gmail.com", password: "123soleil" },
-  { email: "OTuchedu89@gmail.com", password: "123soleil" },
-  { email: "JeanmiPuffedu58@gmail.com", password: "123soleil" },
-  { email: "Gpaslarefdu69@gmail.com", password: "123soleil" },
-  { email: "JeanPierrePuffdu69@gmail.com", password: "123soleil" },
-  { email: "Jeandunorddu59du59@gmail.com", password: "123soleil" }
+  { email: "Jeandunord@gmail.com", password: "123soleil" }
 ]
 
-created_users = users.map { |user| User.find_or_create_by!(email: user[:email]) { |u| u.password = user[:password] } }
+created_users = users.map do |user|
+  User.find_or_create_by!(email: user[:email]) do |u|
+    u.password = user[:password]
+  end
+end
 
+# Création des voitures avec localisation aléatoire
 cars = [
   { style: "stance", name: "Nissan 350Z", price: 90, year: 2018, description: "Voiture abaissée avec kit carrosserie et jantes larges.", public_id: "1" },
   { style: "neon", name: "BMW E46", price: 85, year: 2017, description: "Tuning agressif et carrossage négatif.", public_id: "2" },
@@ -81,9 +77,12 @@ cars = [
   { style: "mini", name: "Smart Fortwo", price: 60, year: 2023, description: "La voiture parfaite pour la ville, ultra-compacte.", public_id: "31" }
 ]
 
+# Assignation des voitures aux utilisateurs
 cars.each do |car_data|
   user = created_users.sample
-  new_car = Car.new(car_data.merge(user: user))
+  location = localisations.sample # Attribution aléatoire d'une localisation
+
+  new_car = Car.new(car_data.merge(user: user, location: location))
 
   if new_car.valid?
     new_car.save!

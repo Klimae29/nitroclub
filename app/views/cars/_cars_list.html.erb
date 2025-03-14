@@ -13,12 +13,11 @@
         <% end %>
       </div>
 
-      <div class="car-card__details">
+<div class="car-card__details">
         <div class="car-card__header">
           <h3><%= car.name %></h3>
-          <div class="car-card__rating">⭐⭐⭐⭐⭐</div>
         </div>
-        <p class="car-card__location">Maubeuge, Nord</p>
+        <p class="car-card__location"><%= car.location.presence || "Localisation inconnue" %></p>
         <p class="car-card__price"><%= car.price %>€ / jour</p>
       </div>
     </div>

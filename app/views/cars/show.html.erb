@@ -22,8 +22,7 @@
       <p><strong>📌 Type :</strong> <%= @car.style.capitalize %></p>
       <p><strong>📅 Année :</strong> <%= @car.year %></p>
       <p><strong>💰 Prix :</strong> <span class="price-tag"><%= @car.price %>€ / jour</span></p>
-      <p><strong>📍 Localisation :</strong> Maubeuge, Nord</p>
-      <p class="user-reviews">⭐️⭐️⭐️⭐️⭐️ (Avis utilisateurs)</p>
+      <p><strong>📍 Localisation :</strong> <%= @car.location.presence || "Localisation inconnue" %></p>
     </div>
 
     <!-- 📌 Réservation avec un design moderne -->

@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+
 export default class extends Controller {
   static targets = ["category"];
 
@@ -23,7 +24,6 @@ export default class extends Controller {
         fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
           .then(response => response.text())
           .then(html => {
-            // Mise à jour de la liste des voitures
             const carContainer = document.querySelector(".cars-container");
             if (carContainer) {
               carContainer.innerHTML = html;
@@ -37,19 +37,27 @@ export default class extends Controller {
           .catch(error => console.error("Erreur AJAX :", error));
       });
     });
+
+    // Ajoute l'effet de survol pour un effet doux violet
+    this.element.querySelectorAll(".category").forEach((category) => {
+      category.addEventListener("mouseenter", () => {
+        if (!category.classList.contains("active")) {
+          category.classList.add("hover-effect");
+        }
+      });
+
+      category.addEventListener("mouseleave", () => {
+        category.classList.remove("hover-effect");
+      });
+    });
   }
 
   updateActiveClass(activeCategory, wasActive) {
-    if (wasActive) {
-      // Désactive la classe active sur toutes les catégories
-      document.querySelectorAll(".category").forEach(category => {
-        category.classList.remove("active");
-      });
-    } else {
-      // Active uniquement la catégorie cliquée
-      document.querySelectorAll(".category").forEach(category => {
-        category.classList.remove("active");
-      });
+    document.querySelectorAll(".category").forEach(category => {
+      category.classList.remove("active", "hover-effect"); // Supprime l'effet sur tous
+    });
+
+    if (!wasActive) {
       activeCategory.classList.add("active");
     }
   }
