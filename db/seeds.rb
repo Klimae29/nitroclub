@@ -34,7 +34,6 @@ users = [
   { email: "Gpaslaref@gmail.com", password: "123soleil" },
   { email: "JeanPierrePuff@gmail.com", password: "123soleil" },
   { email: "Jeandunord@gmail.com", password: "123soleil" },
-  { email: "Jeandunord@gmail.com", password: "123soleil" },
   { email: "Fredlaruch@gmail.com", password: "123soleil" },
   { email: "Freddunord@gmail.com", password: "123soleil" },
   { email: "Freddebethune@gmail.com", password: "123soleil" },
