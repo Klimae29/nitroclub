@@ -8,7 +8,7 @@ class Car < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10_000 }
   validates :year, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1900, less_than_or_equal_to: Date.today.year }
   validates :description, presence: true, length: { maximum: 255 }
-  validates :public_id, presence: true, uniqueness: true
+  #validates :public_id, presence: true, uniqueness: true
 
   before_save :capitalize_name
 

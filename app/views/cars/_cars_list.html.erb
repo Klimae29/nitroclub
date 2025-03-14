@@ -5,6 +5,8 @@
         <%= link_to car do %>
           <% if car.public_id.present? %>
             <%= image_tag "cards/#{car.public_id}.jpg", class: "car-card__image", alt: car.name %>
+          <% elsif car.image.present? %>
+            <%= cl_image_tag car.image.key, class: "car-card__image" %>
           <% else %>
             <p>Image non disponible</p>
           <% end %>
