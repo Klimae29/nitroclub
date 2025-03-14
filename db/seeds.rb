@@ -33,7 +33,28 @@ users = [
   { email: "JeanmiPuffe@gmail.com", password: "123soleil" },
   { email: "Gpaslaref@gmail.com", password: "123soleil" },
   { email: "JeanPierrePuff@gmail.com", password: "123soleil" },
-  { email: "Jeandunord@gmail.com", password: "123soleil" }
+  { email: "Jeandunord@gmail.com", password: "123soleil" },
+  { email: "Jeandunord@gmail.com", password: "123soleil" },
+  { email: "Fredlaruch@gmail.com", password: "123soleil" },
+  { email: "Freddunord@gmail.com", password: "123soleil" },
+  { email: "Freddebethune@gmail.com", password: "123soleil" },
+  { email: "LeparkingaFred@gmail.com", password: "123soleil" },
+  { email: "LeparkinaJeff@gmail.com", password: "123soleil" },
+  { email: "LeParkingalamarine@gmail.com", password: "123soleil" },
+  { email: "Leparkingaolivier@gmail.com", password: "123soleil" },
+  { email: "Yesdu59@gmail.com", password: "123soleil" },
+  { email: "Yesdu21f@gmail.com", password: "123soleil" },
+  { email: "DjMedhi@gmail.com", password: "123soleil" },
+  { email: "MarinedeBelgique@gmail.com", password: "123soleil" },
+  { email: "Vivelabelgiquelibre@gmail.com", password: "123soleil" },
+  { email: "Olivierlasonodu59@gmail.com", password: "123soleil" },
+  { email: "Olivier59debethune@gmail.com", password: "123soleil" },
+  { email: "OliverDiscodu56@gmail.com", password: "123soleil" },
+  { email: "OTuchedu89@gmail.com", password: "123soleil" },
+  { email: "JeanmiPuffedu58@gmail.com", password: "123soleil" },
+  { email: "Gpaslarefdu69@gmail.com", password: "123soleil" },
+  { email: "JeanPierrePuffdu69@gmail.com", password: "123soleil" },
+  { email: "Jeandunorddu59du59@gmail.com", password: "123soleil" }
 ]
 
 created_users = users.map do |user|
