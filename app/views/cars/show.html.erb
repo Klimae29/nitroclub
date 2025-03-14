@@ -3,8 +3,15 @@
 <div class="page-container">
   <!-- 📸 Image du véhicule en haut -->
   <div class="car-image-container">
-    <% image_url = params[:image] || (@car.public_id.present? ? asset_path("cards/#{@car.public_id}.jpg") : image_path("placeholder-car.png")) %>
-    <%= image_tag image_url, class: "car-image", alt: @car.name %>
+    <%# image_url = params[:image] || (@car.public_id.present? ? asset_path("cards/#{@car.public_id}.jpg") : image_path("placeholder-car.png")) %>
+    <%#= image_tag image_url, class: "car-image", alt: @car.name %>
+    <% if @car.public_id.present? %>
+      <%= image_tag asset_path("cards/#{@car.public_id}.jpg") %>
+    <% elsif @car.image.present? %>
+      <%= cl_image_tag @car.image.key, class: "car-image" %>
+    <% else %>
+      <%= image_tag image_path("placeholder-car.png"), class: "car-image" %>
+    <% end %>
   </div>
 
   <!-- 🚗 Détails & Réservation en ligne -->

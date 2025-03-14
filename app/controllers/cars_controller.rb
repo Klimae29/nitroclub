@@ -36,8 +36,8 @@ class CarsController < ApplicationController
 
   # POST /cars
   def create
-    @car = current_user.cars.new(car_params)
-
+    @car = Car.new(car_params)
+    @car.user = current_user
     if @car.save
       redirect_to car_path(@car), notice: "Voiture ajoutée avec succès."
     else
